@@ -62,7 +62,7 @@ public class aduser extends HttpServlet {
 			ResultSet rsdoctor = st2.executeQuery();
 			if(rsinfo.next())
 			{
-				    rsdoctor.next();
+				    
 					//String username = rsinfo.getString(1);
 					//String name = rsinfo.getString(2);
 					//String phone = rsinfo.getString(3);
@@ -76,9 +76,14 @@ public class aduser extends HttpServlet {
 							+ "\"endtime\":\""+rsinfo.getString(6)+"\","
 							+ "\"sex\":\""+rsinfo.getString(7)+"\","
 							+ "\"iconpath\":\""+rsinfo.getString(8)+"\","
-							+ "\"idcard\":\""+rsinfo.getString(9)+"\","
-						    + "\"doctor\":\""+rsdoctor.getString(1)+"\""
-							+"}}";
+							+ "\"idcard\":\""+rsinfo.getString(9)+"\"";
+					if(rsdoctor.next())
+						json+=","+ "\"doctor\":\""+rsdoctor.getString(1)+"\"";
+					else
+						json+=","+ "\"doctor\":\"null\"";
+						    //
+							//+";
+					json+="}}";
 					System.out.println(rsinfo.getString(2));
 					System.out.println(json);
 					json = StringUtil.Encode(json);
