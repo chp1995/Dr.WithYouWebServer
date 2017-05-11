@@ -1,0 +1,78 @@
+package service;
+
+import util.AppException;
+import util.MD5Util;
+import impl.UserDaoImpl;
+import dao.UserDao;
+
+public class UserService {
+	
+	 private UserDao userDao;
+
+	    public UserService()
+	    {
+	        userDao = new UserDaoImpl();
+	    }
+
+
+	    /**
+	     * ÓÃ»§µÇÂ¼
+	     * @param name
+	     * @param password(Î´¼ÓÃÜ)
+	     * @return -1 µÇÂ¼Ê§°Ü   
+	     *          1 Ò½ÉúµÇÂ¼
+	     *          2 »¼ÕßµÇÂ¼
+	     * @throws AppException
+	     */
+	    public int login(String name, String password) 
+	    {
+	        int id = -1;
+	        
+            try {
+            	String encode = MD5Util.MD5(password);
+				id = userDao.login(name, encode);
+			} catch (AppException e) {
+				e.printStackTrace();
+			}
+
+	        return id;
+	    }
+	    
+
+	   /**
+	    * 
+	    * @Title: register 
+	    * @Description: »¼Õß×¢²á
+	    * @param username
+	    * @param password(Î´¼ÓÃÜ)
+	    * @return String
+	    */
+	    public String register(String username, String password)
+	    {
+	    	String message = "";
+	    	
+	    	try {
+	    		String encode = MD5Util.MD5(password);
+				message = userDao.register(username, encode);
+			} catch (AppException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	    	return message;
+	    }
+	    
+	    /**
+	     * 
+	     * @Title: adLogin 
+	     * @Description: TODO
+	     * @param @param username
+	     * @param password
+	     * @return String
+	     */
+	    public String adLogin(String username, String password)
+	    {
+	    	
+	    }
+
+}

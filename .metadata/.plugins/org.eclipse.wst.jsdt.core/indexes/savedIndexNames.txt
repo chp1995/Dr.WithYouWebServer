@@ -1,0 +1,6 @@
+INDEX VERSION 1.122+F:\learning\junior\软件工程综合实践\Dr.WithYouWebServer\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+552358384.index
+803510485.index
+2864285544.index
+3079093754.index
+3740368462.index

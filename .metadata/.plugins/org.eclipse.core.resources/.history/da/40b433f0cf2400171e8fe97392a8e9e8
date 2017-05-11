@@ -1,0 +1,17 @@
+package dao;
+
+import util.AppException;
+
+public interface UserDao {
+	
+	/**
+	 * µÇÂ¼
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+    public int login(String name, String password) throws AppException;
+
+    
+    public String register(String username, String password) throws AppException;
+}

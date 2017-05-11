@@ -1,0 +1,6 @@
+package dbUtil;
+
+public class AppException extends Exception{
+	
+
+}
