@@ -74,10 +74,13 @@ public class adregister extends HttpServlet {
 		    else
 		    {
 		       int n = st.executeUpdate(sqlUpdate);
-		      
+		       
 		       DBUtil.closeStatement(st);
 		       DBUtil.closeConection(con);
 		       if(n>0){
+		    	   //插入信息
+		    	 String insertinfo = "insert into userinfo(username) values('"+usr+"')";
+		    	 con.prepareStatement(insertinfo).executeUpdate();
 		         String json = "{\"result\":\"true\"}";
 		         json= StringUtil.Encode(json);
 		    	 response.getWriter().append(json);
