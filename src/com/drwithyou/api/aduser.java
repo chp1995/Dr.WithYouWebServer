@@ -2,6 +2,7 @@ package com.drwithyou.api;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -51,12 +52,17 @@ public class aduser extends HttpServlet {
 		try {
 			//创建statement
 			Statement st = con.createStatement();
+			
 			//拼接sql
 			
 			String sqlInfo = "select * from userinfo where username = '"+usr+"'";
+			String sqlDoctor = "select name from userinfo,doctorpatient where username=doctorusr and patientusr='"+usr+"'";
+			PreparedStatement  st2 = con.prepareStatement(sqlDoctor);
 			ResultSet rsinfo = st.executeQuery(sqlInfo);
+			ResultSet rsdoctor = st2.executeQuery();
 			if(rsinfo.next())
 			{
+				    
 					//String username = rsinfo.getString(1);
 					//String name = rsinfo.getString(2);
 					//String phone = rsinfo.getString(3);
@@ -70,8 +76,14 @@ public class aduser extends HttpServlet {
 							+ "\"endtime\":\""+rsinfo.getString(6)+"\","
 							+ "\"sex\":\""+rsinfo.getString(7)+"\","
 							+ "\"iconpath\":\""+rsinfo.getString(8)+"\","
-							+ "\"idcard\":\""+rsinfo.getString(9)+"\""
-							+"}}";
+							+ "\"idcard\":\""+rsinfo.getString(9)+"\"";
+					if(rsdoctor.next())
+						json+=","+ "\"doctor\":\""+rsdoctor.getString(1)+"\"";
+					else
+						json+=","+ "\"doctor\":\"null\"";
+						    //
+							//+";
+					json+="}}";
 					System.out.println(rsinfo.getString(2));
 					System.out.println(json);
 					json = StringUtil.Encode(json);
