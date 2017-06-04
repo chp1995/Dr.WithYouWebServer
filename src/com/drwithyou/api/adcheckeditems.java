@@ -37,6 +37,7 @@ public class adcheckeditems extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String token = request.getParameter("token");
+		String filterID = request.getParameter("cid");
 		String usr = Token.checkToken(token);
 		if(usr==null)
 		{
@@ -61,8 +62,21 @@ public class adcheckeditems extends HttpServlet {
 						+"\"checktime\":\""+rs.getString(3)+"\","
 						+"\"submittime\":\""+rs.getString(4)+"\","
 						+"\"value\":\""+rs.getString(5)+"\"},";
-				json += subjson;
-				n++;
+				if(filterID!= null)
+				{
+					if(rs.getString(1).equals(filterID))
+					{
+						json += subjson;
+						n++;
+					}
+				}
+				else
+				{
+					json += subjson;
+					n++;
+				}
+				
+				
 
 			}
 			if(n>0)
