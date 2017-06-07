@@ -1,11 +1,13 @@
 package com.drwithyou.util;
 
+
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import com.mysql.jdbc.Driver;
+
 
 public class DBUtil {
 	
@@ -18,6 +20,8 @@ public class DBUtil {
 	    // ��������
 	    try {
 	        Class.forName("com.mysql.jdbc.Driver");     //����MYSQL JDBC��������
+	        Driver a = new com.mysql.jdbc.Driver();
+	        
 	        //Class.forName("org.gjt.mm.mysql.Driver");
 	        System.out.println("Success loading Mysql Driver!");
 	    }
