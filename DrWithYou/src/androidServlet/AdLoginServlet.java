@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
+
 import service.UserService;
 import util.Token;
 
@@ -51,15 +53,15 @@ public class AdLoginServlet extends HttpServlet {
 		System.out.println(name + "   " + password);
 		int id = service.adLogin(name, password, token);
 		
+		JSONObject json=new JSONObject();
 		// 医生登陆成功
-		if(id == 1){
-			// session记录用户token
-			HttpSession session = request.getSession();
-			session.setAttribute("token", token);
-			
-			// 定向至
-			response.sendRedirect("");
-		}
+		if(id == 1)			
+			json.put("result", "true");
+		else
+			json.put("result", "false");
+		
+		response.getWriter().write(json.toString());
+
 	}
 
 }

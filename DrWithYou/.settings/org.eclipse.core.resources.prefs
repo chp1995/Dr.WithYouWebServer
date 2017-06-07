@@ -1,5 +1,16 @@
-#Wed Apr 19 12:58:01 CST 2017
 eclipse.preferences.version=1
+encoding//WebContent/addChecklist.jsp=UTF-8
+encoding//WebContent/addPatient.jsp=UTF-8
+encoding//WebContent/addTemplet.jsp=UTF-8
+encoding//WebContent/checkpointList.jsp=UTF-8
+encoding//WebContent/data.jsp=UTF-8
+encoding//WebContent/editChecklist.jsp=UTF-8
+encoding//WebContent/editTemplet.jsp=UTF-8
 encoding//WebContent/login.jsp=UTF-8
+encoding//WebContent/message.jsp=UTF-8
+encoding//WebContent/patientChecklistDetail.jsp=UTF-8
+encoding//WebContent/patientCheckpoint.jsp=UTF-8
+encoding//WebContent/templet.jsp=UTF-8
 encoding//WebContent/userManagement.jsp=UTF-8
+encoding//src/impl/PatientDaoImpl.java=UTF-8
 encoding//src/impl/UserDaoImpl.java=UTF-8

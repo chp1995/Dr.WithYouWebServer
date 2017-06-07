@@ -9,15 +9,15 @@ import java.sql.Statement;
 
 public class DBUtil {
 	
-	private static String url = "jdbc:mysql://127.0.0.1:3306/doctor?userUnicode=true&amp;"
+	private static String url = "jdbc:mysql://127.0.0.1:3306/drwithyoudb?userUnicode=true&amp;"
         + "characterEncoding=utf8";
-	private static String username = "root";
-	private static String password = "xiannvzier";
+	private static String username = "drwithyou";
+	private static String password = "drwithyou";
 	
 	static{
-	    // ¼ÓÔØÇý¶¯
+	    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    try {
-	        Class.forName("com.mysql.jdbc.Driver");     //¼ÓÔØMYSQL JDBCÇý¶¯³ÌÐò
+	        Class.forName("com.mysql.jdbc.Driver");     //ï¿½ï¿½ï¿½ï¿½MYSQL JDBCï¿½ï¿½ï¿½ï¿½ï¿½
 	        //Class.forName("org.gjt.mm.mysql.Driver");
 	        System.out.println("Success loading Mysql Driver!");
 	    }
@@ -31,17 +31,17 @@ public class DBUtil {
 	{
 	    Connection conn = null;
 	
-	    // ´´½¨Á¬½Ó
+	    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	    try {
 	        conn = DriverManager.getConnection(url, username, password);
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	    } // ´´½¨Êý¾Ý¿âÁ¬½Ó
+	    } // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	    return conn;
 	}
 	
-	// ¹Ø±ÕÁ¬½Ó
+	// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½
 	public static void closeConection(Connection conn)
 	{
 	    try {

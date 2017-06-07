@@ -1,86 +1,87 @@
 package service;
 
-import util.AppException;
 import util.MD5Util;
 import impl.UserDaoImpl;
 import dao.UserDao;
 
 public class UserService {
 	
-	 private UserDao userDao;
+	private UserDao userDao;
 
-	    public UserService()
-	    {
-	        userDao = new UserDaoImpl();
-	    }
+    public UserService()
+    {
+        userDao = new UserDaoImpl();
+    }
 
+    /**
+     * Ò½ï¿½ï¿½ï¿½Â¼
+     * @param name
+     * @param password(Î´ï¿½ï¿½ï¿½ï¿½)
+     * @return  0  ï¿½ï¿½Â¼Ê§ï¿½ï¿½   
+     *          1  Ò½ï¿½ï¿½ï¿½Â¼ï¿½É¹ï¿½
+     * @throws AppException
+     */
+    public int login(String name, String password, String token) 
+    {
+       	String encode = MD5Util.MD5(password);
+		int id = userDao.login(name, encode, token);
+	
+        return id;
+    }
+    
 
-	    /**
-	     * Ò½ÉúµÇÂ¼
-	     * @param name
-	     * @param password(Î´¼ÓÃÜ)
-	     * @return  0  µÇÂ¼Ê§°Ü   
-	     *          1  Ò½ÉúµÇÂ¼³É¹¦
-	     * @throws AppException
-	     */
-	    public int login(String name, String password, String token) 
-	    {
-	        int id = 0;
-	        
-            try {
-            	String encode = MD5Util.MD5(password);
-				id = userDao.login(name, encode, token);
-			} catch (AppException e) {
-				e.printStackTrace();
-			}
-
-	        return id;
-	    }
-	    
-
-	   /**
-	    * 
-	    * @Title: register 
-	    * @Description: »¼Õß×¢²á
-	    * @param username
-	    * @param password(Î´¼ÓÃÜ)
-	    * @return String
-	    */
-	    public String register(String username, String password)
-	    {
-	    	String message = "";
-	    	
-	    	try {
-	    		String encode = MD5Util.MD5(password);
-				message = userDao.register(username, encode);
-			} catch (AppException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-	    	return message;
-	    }
-	    
-	    /**
-	     * 
-	     * @Title: adLogin 
-	     * @Description: »¼ÕßµÇÂ¼
-	     * @param username
-	     * @param password(Î´¼ÓÃÜ)
-	     * @return String
-	     */
-	    public int adLogin(String username, String password, String token)
-	    {
-	    	int id = 0;
-	    	
-	    	try {
-            	String encode = MD5Util.MD5(password);
-				id = userDao.adLogin(username, encode, token);
-			} catch (AppException e) {
-				e.printStackTrace();
-			}
-			
-			return id;
-	    }
+   /**
+    * 
+    * @Title: register 
+    * @Description: ç—…äººæ³¨å†Œ
+    * @param username
+    * @param password(Î´ï¿½ï¿½ï¿½ï¿½)
+    * @return String
+    */
+    public String register(String username, String password)
+    {
+    	String encode = MD5Util.MD5(password);
+    	String message = userDao.register(username, encode);
+	
+    	return message;
+    }
+    
+    /**
+     * 
+     * @Title: adLogin 
+     * @Description: ç—…äººç™»å½•
+     * @param username
+     * @param password(Î´ï¿½ï¿½ï¿½ï¿½)
+     * @return String
+     */
+    public int adLogin(String username, String password, String token)
+    {
+      	String encode = MD5Util.MD5(password);
+		int id = userDao.adLogin(username, encode, token);
+		
+		return id;
+    }
+    
+    /**
+     * åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦å­˜åœ¨
+     * @param username
+     * @return
+     */
+    public boolean isExist(String username){
+    	  	
+        boolean result = userDao.isExist(username);
+		
+		return result;
+    }
+    
+    /**
+     * æ ¹æ®token è·å–ç”¨æˆ·å
+     * @param token
+     * @return
+     */
+    public String getUsername(String token){
+    	String username = userDao.getUsername(token);
+    	return username;
+    }
 
 }

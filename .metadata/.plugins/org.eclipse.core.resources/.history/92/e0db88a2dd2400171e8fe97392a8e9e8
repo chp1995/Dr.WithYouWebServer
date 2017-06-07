@@ -1,0 +1,13 @@
+package util;
+
+/**   
+ * @Title: Token.java
+ * @Description:  
+ * @author guwenyu
+ * @date 2017-4-19 обнГ04:53:14
+ * @version V1.0   
+ */
+
+public class Token {
+
+}

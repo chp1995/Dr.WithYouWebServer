@@ -1,0 +1,40 @@
+package service;
+
+import util.AppException;
+import impl.UserDaoImpl;
+import dao.UserDao;
+
+public class UserService {
+	
+	 private UserDao userDao;
+
+	    public UserService()
+	    {
+	        userDao = new UserDaoImpl();
+	    }
+
+
+	    /**
+	     * 用户登录
+	     * @param name
+	     * @param password
+	     * @return -1 登录失败   
+	     *          1 医生登录成功
+	     *          2 患者登录成功
+	     * @throws AppException
+	     */
+	    public int login(String name, String password) throws AppException
+	    {
+	        int id = -1;
+
+	        try{
+	            id = userDao.login(name, password);
+	        }catch(AppException e){
+	            e.printStackTrace();
+	            throw new AppException("service/UserService/login");
+	        }
+
+	        return id;
+	    }
+
+}

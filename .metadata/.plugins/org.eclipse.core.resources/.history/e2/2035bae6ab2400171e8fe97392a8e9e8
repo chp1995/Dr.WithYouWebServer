@@ -1,0 +1,13 @@
+package dao;
+
+public interface UserDao {
+	
+	/**
+	 * µÇÂ¼
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+    public int login(String name, String password);
+
+}

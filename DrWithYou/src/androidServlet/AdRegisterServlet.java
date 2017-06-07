@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import net.sf.json.JSONObject;
+
+
 import service.UserService;
 
 /**
@@ -45,8 +49,10 @@ public class AdRegisterServlet extends HttpServlet {
 		String message = service.register(username, password);
 		
 		// ∑µªÿÃ· æ
-		request.setAttribute("message", message);
-		request.getRequestDispatcher("/register.jsp").forward(request, response);
+		JSONObject json=new JSONObject();
+		json.put("message", message);
+		response.getWriter().write(json.toString());
+
 	}
 
 }

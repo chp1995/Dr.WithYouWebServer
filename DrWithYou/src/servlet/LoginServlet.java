@@ -41,12 +41,13 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// ÉèÖÃ×Ö·û¼¯±àÂë
+		// è®¾ç½®ç¼–ç 
 		request.setCharacterEncoding("UTF-8"); 
 		
-		// »ñÈ¡ÓÃ»§ÃûÃÜÂë
+		// è·å–ç”¨æˆ·ä¿¡æ¯
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
+		System.out.println("login\t" + name + "\t" + password);
 		String token = Token.getToken();
 		
 		// 
@@ -54,15 +55,22 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(name + "   " + password);
 		int id = service.login(name, password, token);
 		
-		// Ò½ÉúµÇÂ½³É¹¦
+		String message = "";
+		// å¤„ç†
 		if(id == 1){
-			// session¼ÇÂ¼ÓÃ»§token
+			// sessionä¿å­˜token
 			HttpSession session = request.getSession();
 			session.setAttribute("token", token);
 			
-			// ¶¨ÏòÖÁ²¡ÈË¹ÜÀí½çÃæ
-			response.sendRedirect("UserManage");
+			// é‡å®šå‘
+			message = "ç™»å½•æˆåŠŸï¼";
 		}
+		else
+			message = "ç™»å½•å¤±è´¥ï¼";
+		
+		System.out.println("login message = " + message);
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(message);
 		
 	}
 

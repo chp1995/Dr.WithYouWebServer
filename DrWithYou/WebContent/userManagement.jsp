@@ -1,4 +1,6 @@
 ﻿<!doctype html>
+<%@page import="java.util.*"%>
+<%@page import="model.Patient"%>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -25,16 +27,34 @@
     <link href="assets/css/demo.css" rel="stylesheet" />
 
     <!--  Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href='css/css.css' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
 
+    <script type="text/javascript">
+		function deletePatient(username){
+            //alert(username);
+			
+		    $.ajax({
+                 type: "get",
+                 url: "deleteDoctorPatient",
+                 data: {patientusr: username},//提交表单，相当于CheckCorpID.ashx?ID=XXX
+                 contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+                 success: function(msg){
+                	    alert(msg); window.location.href = "UserManage"}
+                }); 
+		}
+	
+	</script>
 </head>
 <body>
 
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="danger">
 
+    <% String token=(String)session.getAttribute("token");
+       if(token == null){
+       request.getRequestDispatcher("login").forward(request, response);}%>
     <!--
 		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
 		Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
@@ -49,38 +69,30 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="bingren.html">
+                    <a href="UserManage">
                         <i class="ti-user"></i>
                         <p>病人管理</p>
                     </a>
                 </li>
                  <li >
-                    <a href="bingqing.html">
+                    <a href="patientCheckpoint">
                         <i class="ti-view-list-alt"></i>
                         <p>病情管理</p>
                     </a>
                 </li>
                 <li>
-                    <a href="moban.html">
+                    <a href="templet">
                         <i class="ti-panel"></i>
                         <p>模版管理</p>
                     </a>
                 </li>
                   <li>
-                    <a href="jianchaxiang.html">
+                    <a href="checklist">
                         <i class="ti-pencil-alt2"></i>
                         <p>检查项设置</p>
                     </a>
                 </li>
                
-                <li>
-                    <a href="notifications.html">
-                        <i class="ti-bell"></i>
-                        <p>我的消息</p>
-                    </a>
-                </li>
-				
-        
     	</div>
     </div>
 
@@ -104,23 +116,8 @@
                                 <p>设置</p>
                             </a>
                         </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-bell"></i>
-                                    <p class="notification">4</p>
-									<p>消息</p>
-									<b class="caret"></b>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">消息 1</a></li>
-                                <li><a href="#">消息 2</a></li>
-                                <li><a href="#">消息 3</a></li>
-                                <li><a href="#">消息 4</a></li>
-                                <li><a href="#">全部消息</a></li>
-                              </ul>
-                        </li>
                          <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="logout" >
                                 <i class="ti-panel"></i>
                                 <p>退出</p>
                             </a>
@@ -139,86 +136,56 @@
                                              
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">病人管理列表</h4> <br />
+                                  <div class="icon-big icon-danger text-center" style="position:absolute;margin:1px 0 0 1px">
+                                            <i class="ti-pulse"></i>
+                                        </div>   
+                                         <h4 class="title" style="position:absolute;margin:12px 0 0 60px">病人管理列表</h4> <br />                             
+                           </br>
                                <div class="text-right">
-                                <a href="tianjiabingren.html">
-                                        <button   class="btn btn-info btn-fill btn-wd" >添加病人</button>
+                                <a href="addPatient">
+                                        <button   class="btn btn-info btn-fill btn-wd">添加病人</button>
                                     </a>
-                                    </div>
+                                </div>
                             </div>
                             <div class="content">
 
                                 <ul class="list-unstyled team-members">
+                                <% ArrayList<Patient> list = (ArrayList<Patient>)request.getAttribute("list"); %>
+                                <%
+                                    	if(list != null){
+	                                    	Iterator iter = list.iterator(); 
+											while(iter.hasNext()) { 									
+												Patient p = (Patient)iter.next();
+								%>
                                             <li>
-                                                 <button type="button" aria-hidden="true" class="close">×</button>
+                                                 <input type="button" aria-hidden="true" class="close" value="x" onclick="deletePatient('<%= p.getUsername()%>')">
 
                                                 <div class="row">
                                                     <div class="col-xs-3">  
-                                                         <a href="data.html">
+                                                         <a href="data?usr=<%= p.getUsername()%>">
                                                         <div class="avatar">
                                                             <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
                                                         </div></a>
                                                     </div>
                                                     <div class="col-xs-6">
-                                                        陈翠花 - 女
-                                                        <br />
-                                                        <span><small>联系方式：123456</small></span><br />
-                                                         <span><small>证件号：123456</small></span><br />
-                                                        <span><small>病情描述：哈哈哈哈哈哈哈哈哈哈哈哈哈</small></span>
+                                                        	<%= p.getPatient_name() %> - <%= p.getSex() %>
+                                                        <br/>
+                                                        <span><small>联系方式：<%= p.getPhone() %></small></span><br />
+                                                         <span><small>证件号：<%= p.getIdCard() %></small></span><br />
+                                                        <span><small>病情描述：<%= p.getIllness() %></small></span>
                                                     </div>
                                                    
                                                     <div class="col-xs-3 text-right"></br>
 
-                                                       <a href="aaaaaaaaaaaaa.html">
+                                                       <a href="message?pa=<%=p.getUsername()%>">
                                                         <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn></a>
-                                                    </div></a>
+                                                    </a>
                                                 </div>
                                             </li>
+                                            
+                                            <% }}%>   
 
-                                            <li>
-                                                 <button type="button" aria-hidden="true" class="close">×</button>
-                                                <div class="row">
-                                                    <div class="col-xs-3">
-                                                        <div class="avatar" >
-                                                            <img src="assets/img/faces/face-1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive" >
-                                                        </div>
-                                                      
-                                                    </div>
-                                                    <div class="col-xs-6">
-                                                         王大力 - 男
-                                                        <br />
-                                                     <span><small>联系方式：123456</small></span><br />
-                                                         <span><small>证件号：123456</small></span><br />
-                                                        <span><small>病情描述：哈哈哈哈哈哈哈哈哈哈哈哈哈</small></span>
-                                                    </div>
-
-                                                    <div class="col-xs-3 text-right"></br>
-                                                        <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-                                                    </div>
-
-                                                </div>
-                                            </li>
-                                            <li>
-                                                 <button type="button" aria-hidden="true" class="close">×</button>
-                                                <div class="row">
-                                                    <div class="col-xs-3">
-                                                        <div class="avatar">
-                                                            <img src="assets/img/faces/face-3.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-6">
-                                                        李冰冰 - 女
-                                                        <br />
-                                                        <span><small>联系方式：123456</small></span><br />
-                                                         <span><small>证件号：123456</small></span><br />
-                                                        <span><small>病情描述：哈哈哈哈哈哈哈哈哈哈哈哈哈</small></span>
-                                                    </div>
-
-                                                    <div class="col-xs-3 text-right"></br>
-                                                        <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                           
                                         </ul>
                                       </div>
                                    </div>
@@ -243,9 +210,6 @@
 
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 	<script src="assets/js/paper-dashboard.js"></script>

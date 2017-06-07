@@ -1,0 +1,34 @@
+package service;
+
+public class UserService {
+	
+	 private UserDao userDao;
+
+	    public UserService()
+	    {
+	        userDao = new UserDaoImpl();
+	    }
+
+
+	    /**
+	     * ÓÃ»§µÇÂ¼
+	     * @param name
+	     * @param password
+	     * @return -1 µÇÂ¼Ê§°Ü   1 µÇÂ½³É¹¦
+	     * @throws AppException
+	     */
+	    public int login(String name, String password) throws AppException
+	    {
+	        int id = -1;
+
+	        try{
+	            id = userDao.login(name, password);
+	        }catch(AppException e){
+	            e.printStackTrace();
+	            throw new AppException("service/UserService/login");
+	        }
+
+	        return id;
+	    }
+
+}

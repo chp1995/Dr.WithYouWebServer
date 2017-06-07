@@ -1,0 +1,11 @@
+package util;
+
+public class Token {
+	
+	public static String getToken(){
+		UUID uuid  =  UUID.randomUUID(); 
+		String s = UUID.randomUUID().toString();
+		return s;
+	}
+
+}

@@ -1,0 +1,20 @@
+package util;
+
+import java.util.UUID;
+
+public class Token {
+	
+	/**
+	 * 
+	 * @Title: getToken 
+	 * @Description: TODO
+	 * @param @return  
+	 * @return String
+	 */
+	public static String getToken(){
+		UUID uuid  =  UUID.randomUUID(); 
+		String s = UUID.randomUUID().toString();
+		return s;
+	}
+
+}
