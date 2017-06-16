@@ -1,0 +1,8 @@
+1、在云服务器上部署了demo REST API 解决了APP开发滞留等待的问题
+2、云服务器REST API和WebService 并行开发
+3、认证方式由明文username+md5(password） 修改为 Token认真 更加轻量、安全
+4、统一约束数据库版本、数据库版本迭代更新了6个版本。2.0为稳定版
+--测试工具  postman selenium
+
+
+实施结果 加快了web和app的开发进程速度、解除了耦合性、降低了开发难度
