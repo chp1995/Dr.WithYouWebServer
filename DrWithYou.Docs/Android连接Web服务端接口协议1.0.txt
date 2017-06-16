@@ -1,0 +1,36 @@
+Web端将开放一下Servlet供Get方法使用，协议为HTTP，调用后返回json 返回例子不局限于例子
+数据库里用户的密码为密码的MD5值，长度为32  大写。
+假设我们的域名为http://drwithyou.com
+
+
+S开头的为Servlet
+
+SLogin //登录
+http://drwithyou.com/Slogin?username=13566520145&password=01FF3F2B2A2C1C1B1E10598E57A  
+return { "login":"true"} { "login":"false"}
+
+SRegister //注册
+http://drwithyou.com/SRegister?username=13566520145&password=01FF3F2B2A2C1C1B1E10598E57A 
+return { "register":"true"} { "register":"false"}
+
+SGetCheckItemList//获取当日待提交的检查项
+http://drwithyou.com/SGetCheckItemList?username=13566520145&password=01FF3F2B2A2C1C1B1E10598E57A
+return [{"name":"血糖","time":"上午8点"},{"name":"心跳","time":"下午3点"},{"name":"心跳","time":"下午3点"}]
+
+SSubmitCheckItem //提交检查项
+http://drwithyou.com/SSubmitCheckItem?username=13566520145&password=01FF3F2B2A2C1C1B1E10598E57A&name=血糖&time=上午8点&value=xxx
+return { "submit":"true"}
+//注意中文url编码
+
+SGetCheckedItemList//获取已经提交的检查项
+http://drwithyou.com/SGetCheckItemList?username=13566520145&password=01FF3F2B2A2C1C1B1E10598E57A
+return [{"name":"血糖","time":"上午8点","value":10},{"name":"心跳","time":"下午3点","value":60.0}]
+
+SGetInfo //获取个人信息
+http://drwithyou.com/SGetInfo?username=13566520145&password=01FF3F2B2A2C1C1B1E10598E57A 
+return {"name":"陈冬","doctor":"张三","illness":"长太帅病"}
+
+
+
+
+
